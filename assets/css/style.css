@@ -1,0 +1,9 @@
+/* Styling for the jumbotron */
+.jumbotron {
+    text-align: center;
+    background-color: grey;
+    color: white;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: 0;
+}
