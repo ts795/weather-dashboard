@@ -7,6 +7,8 @@
     <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <!-- Google fonts icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
 </head>
@@ -14,6 +16,29 @@
     <header class="jumbotron">
         <h1 class="display-4">Weather Dashboard</h1>
     </header>
+    <div class="container">
+        <div class="row">
+            <!-- Column containing search box and saved search results -->
+            <div class="col-3" id="search-box-and-saved-searches">
+                <h2>Search for a City:</h2>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-icons">
+                        search
+                        </span>
+                    </button>
+                </div>
+                <ul class="list-group list-group-flush" id="search-results">
+                    <!-- Cities dynamically inserted here -->
+                    <!-- <li class="list-group-item">Atlanta</li> -->
+                </ul>
+            </div>
+            <!-- Column containing current weather and the 5 day weather forecast -->
+            <div class="col-9">
+            </div>
+        </div>
+    </div>
     <script src="./assets/js/app.js"></script>
 </body>
 </html>
