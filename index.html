@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-        <!-- Google fonts icons -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Google fonts icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
 </head>
@@ -19,26 +17,29 @@
     <div class="container">
         <div class="row">
             <!-- Column containing search box and saved search results -->
-            <div class="col-3" id="search-box-and-saved-searches">
+            <div class="col-4" id="search-box-and-saved-searches">
                 <h2>Search for a City:</h2>
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchInput">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary btn-sm" id="searchButton">
                         <span class="material-icons">
                         search
                         </span>
                     </button>
                 </div>
-                <ul class="list-group list-group-flush" id="search-results">
+                <ul class="list-group mt-3" id="searched-cities-list">
                     <!-- Cities dynamically inserted here -->
                     <!-- <li class="list-group-item">Atlanta</li> -->
                 </ul>
             </div>
             <!-- Column containing current weather and the 5 day weather forecast -->
-            <div class="col-9">
+            <div class="col-8">
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="./assets/js/app.js"></script>
 </body>
 </html>
