@@ -7,3 +7,8 @@
     padding-bottom: 0px;
     border-radius: 0;
 }
+
+/* Don't display the card until there is data */
+#todays-weather {
+    display: none;
+}
