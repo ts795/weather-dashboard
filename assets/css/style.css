@@ -9,12 +9,7 @@
 }
 
 /* Don't display the card until there is data */
-#todays-weather {
-    display: none;
-}
-
-/* Don't display the card until there is data */
-#five-day-forecast {
+#todays-weather-card-container, #five-day-forecast{
     display: none;
 }
 

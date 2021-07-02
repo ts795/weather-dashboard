@@ -3,6 +3,7 @@ var searchButtonEl = $("#searchButton");
 var searchInputEl = $("#searchInput");
 var searchedCitiesListEl = $("#searched-cities-list");
 var todaysWeatherEl = $("#todays-weather");
+var todaysWeatherCardContainerEl = $("#todays-weather-card-container");
 var fiveDayForecastEl = $("#five-day-forecast");
 var fiveDayForecastCardContainersEl = $("#five-day-forecast-card-containers");
 var API_KEY = "c08b9e5af7e85d42268e3b53afd57d29";
@@ -50,10 +51,12 @@ function displaySearchedCities() {
 // Create a 5-day forecast card from the JSON daily array value returned by open weather
 function createFiveDayForecastCard(data) {
     var cardEl = $("<div>");
-    cardEl.addClass("card");
-    var dateEl = $("<h2>");
+    // Add margin and set text to white and background to blue
+    cardEl.addClass("card m-1 text-white bg-primary");
+    var dateEl = $("<h5>");
     var forecastDate = moment(data.dt, "X").format("MM-DD-YYYY");
     dateEl.text(forecastDate);
+    dateEl.addClass("p-1");
     cardEl.append(dateEl);
     // Add the image to the icon for the weather
     // The link has a form: http://openweathermap.org/img/wn/10d@2x.png
@@ -63,12 +66,15 @@ function createFiveDayForecastCard(data) {
     cardEl.append(weatherImageEl);
     var tempEl = $("<div>");
     tempEl.text("Temp: " + data.temp.day + "°F");
+    tempEl.addClass("p-1");
     cardEl.append(tempEl);
     var windEl = $("<div>");
     windEl.text("Wind: " + data.wind_speed + " MPH");
+    windEl.addClass("p-1");
     cardEl.append(windEl);
     var humidityEl = $("<div>");
     humidityEl.text("Humidity: " + data.humidity + " %");
+    humidityEl.addClass("p-1");
     cardEl.append(humidityEl);
     return cardEl;
 }
@@ -131,7 +137,7 @@ function getWeatherForCity(city) {
                 uviValueEl.addClass("uvi");
                 uviEl.append(uviValueEl);
                 todaysWeatherEl.append(uviEl);
-                todaysWeatherEl.show();
+                todaysWeatherCardContainerEl.show();
             } else {
                 console.log("Unable to parse uvi value: " + data.current.uvi);
             }
