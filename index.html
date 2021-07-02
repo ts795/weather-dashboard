@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Column containing search box and saved search results -->
-            <div class="col-4 w-100" id="search-box-and-saved-searches">
+            <div class="col-12 col-sm-12 col-md-4" id="search-box-and-saved-searches">
                 <h2>Search for a City:</h2>
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchInput">
@@ -33,22 +33,22 @@
                 </ul>
             </div>
             <!-- Column containing current weather and the 5 day weather forecast -->
-            <div class="col-8">
-                <div class="row h-75">
-                    <div class="card w-100">
+            <div class="col-12 col-sm-12 col-md-8">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 card">
                         <div class="card-body" id="todays-weather">
                         </div>
                     </div>
-                    <div class="card w-100" id="five-day-forecast">
+                    <div class="col-12 col-sm-12 col-md-12 card" id="five-day-forecast">
                         <div class="card-body">
                         </div>
                         <h1>5-Day Forecast </h1>
-                        <div id="five-day-forecast-card-containers" class="d-flex flex-row"> 
+                        <div id="five-day-forecast-card-containers" class="d-flex flex-column flex-sm-column flex-md-row"> 
 
                         </div>
                     </div>
                 </div>
-                <div class="row h-25">
+                <div class="row">
                 </div>
             </div>
         </div>
