@@ -3,6 +3,7 @@ var searchButtonEl = $("#searchButton");
 var searchInputEl = $("#searchInput");
 var searchedCitiesListEl = $("#searched-cities-list");
 var todaysWeatherEl = $("#todays-weather");
+var fiveDayForecastEl = $("#five-day-forecast");
 var API_KEY = "";
 
 // List of already searched cities
@@ -32,6 +33,32 @@ function displaySearchedCities() {
         cityListEl.addClass("list-group-item");
         searchedCitiesListEl.append(cityListEl);
     }
+}
+
+// Create a 5-day forecast card from the JSON daily array value returned by open weather
+function createFiveDayForecastCard(data) {
+    var cardEl = $("<div>");
+    cardEl.addClass("card");
+    var dateEl = $("<h2>");
+    var forecastDate = moment(data.dt, "X").format("MM-DD-YYYY");
+    dateEl.text(forecastDate);
+    cardEl.append(dateEl);
+    // Add the image to the icon for the weather
+    // The link has a form: http://openweathermap.org/img/wn/10d@2x.png
+    var weatherImageEl = $("<img>");
+    weatherImageEl.attr("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+    weatherImageEl.attr("alt", data.weather[0].icon.description);
+    cardEl.append(weatherImageEl);
+    var tempEl = $("<div>");
+    tempEl.text("Temp: " + data.temp.day + "°F");
+    cardEl.append(tempEl);
+    var windEl = $("<div>");
+    windEl.text("Wind: " + data.wind_speed + " MPH");
+    cardEl.append(windEl);
+    var humidityEl = $("<div>");
+    humidityEl.text("Humidity: " + data.humidity + " %");
+    cardEl.append(humidityEl);
+    return cardEl;
 }
 
 // Get the weather for a city
@@ -68,7 +95,7 @@ function getWeatherForCity(city) {
             todaysWeatherEl.append(humidityEl);
             // Show the card
             // Get the UV index and 5 day forecase
-            requestUrl = encodeURI("https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly&appid=" + API_KEY);
+            requestUrl = encodeURI("https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&units=imperial&exclude=hourly&appid=" + API_KEY);
             return fetch(requestUrl);
         })
         .then(function (response) {
@@ -96,6 +123,17 @@ function getWeatherForCity(city) {
             } else {
                 console.log("Unable to parse uvi value: " + data.current.uvi);
             }
+            console.log(data);
+            // Update the 5 day forecast
+            fiveDayForecastEl.empty();
+            var titleEl = $("<h1>5-Day Forecast </h1>");
+            fiveDayForecastEl.append(titleEl);
+            // Show the forecast for the next 5 days, ignore the first element since it is the current day
+            for (var idx = 1; idx < 6; idx++) {
+                var forecastDay = createFiveDayForecastCard(data.daily[idx]);
+                fiveDayForecastEl.append(forecastDay);
+            }
+            
         });
 }
 
