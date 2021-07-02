@@ -45,11 +45,17 @@ function getWeatherForCity(city) {
         })
         .then(function (data) {
             var todaysDate = moment(data.dt, "X").format("MM-DD-YYYY");
-            var icon = data.weather.icon;
-            var iconDescription = data.weather.description;
+            var icon = data.weather[0].icon;
+            var iconDescription = data.weather[0].description;
             todaysWeatherEl.empty();
             var cityAndDateEl = $("<h1>");
             cityAndDateEl.text(city + " (" + todaysDate + ")");
+            // Add the image to the icon for the weather
+            // The link has a form: http://openweathermap.org/img/wn/10d@2x.png
+            var weatherImageEl = $("<img>");
+            weatherImageEl.attr("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+            weatherImageEl.attr("alt", iconDescription);
+            cityAndDateEl.append(weatherImageEl);
             todaysWeatherEl.append(cityAndDateEl);
             var tempEl = $("<div>");
             tempEl.text("Temp: " + data.main.temp + "°F");
