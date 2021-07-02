@@ -10,6 +10,15 @@ var API_KEY = "";
 // List of already searched cities
 var searchCitiesList = [];
 
+// Load any saved searches from local storage
+var fromLocalStorage = localStorage.getItem("savedSearches");
+
+if (fromLocalStorage) {
+    searchCitiesList = JSON.parse(fromLocalStorage);
+    // Display the list of cities
+    displaySearchedCities();
+}
+
 // Function to normalize city names
 // e.g. SAN FRANCISCO become San Francisco
 function normalizeCityName(cityName) {
@@ -151,6 +160,9 @@ searchButtonEl.on("click", function() {
         searchCitiesList.push(city);
         // Keep the list in sorted order
         searchCitiesList.sort();
+        // Save to local storage so previous searches will show when the page is reloaded
+        localStorage.setItem("savedSearches", JSON.stringify(searchCitiesList));
+
         // Display the list of cities
         displaySearchedCities();
     }
