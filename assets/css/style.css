@@ -12,3 +12,26 @@
 #todays-weather {
     display: none;
 }
+
+/* Styling for the UVI value */
+.uvi {
+    padding: 2px;
+}
+
+/* coloring for favorable UV index */
+.favorable-uvi {
+    background-color: green;
+    color: white;
+  }
+ 
+/* Coloring for moderate UV index */
+.moderate-uvi {
+    background-color: orange;
+    color: white;
+  }
+  
+/* Coloring for severe UV index */
+.severe-uvi {
+    background-color: red;
+    color: white;
+}

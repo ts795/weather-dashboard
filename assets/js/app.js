@@ -3,7 +3,7 @@ var searchButtonEl = $("#searchButton");
 var searchInputEl = $("#searchInput");
 var searchedCitiesListEl = $("#searched-cities-list");
 var todaysWeatherEl = $("#todays-weather");
-var API_KEY = "3693a2a576a9f86b3d300687b396e588";
+var API_KEY = "";
 
 // List of already searched cities
 var searchCitiesList = [];
@@ -63,17 +63,33 @@ function getWeatherForCity(city) {
             // Show the card
             // Get the UV index and 5 day forecase
             requestUrl = encodeURI("https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly&appid=" + API_KEY);
-            console.log(requestUrl);
             return fetch(requestUrl);
         })
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            var uviEl = $("<div>");
-            uviEl.text("UV Index: " + data.current.uvi);
-            todaysWeatherEl.append(uviEl);
-            todaysWeatherEl.show();
+            var uvi = parseFloat(data.current.uvi);
+            if (!isNaN(uvi)) {
+                var uviEl = $("<div>");
+                uviEl.text("UV Index: ");
+                var uviValueEl = $("<span>");
+                uviValueEl.text(uvi);
+                /* Set the styling for the UV index value based on whether conditions are favorable, moderate, or severe */
+                if (uvi <= 2) {
+                    uviValueEl.addClass("favorable-uvi");
+                } else if (uvi <= 5) {
+                    uviValueEl.addClass("moderate-uvi");
+                } else {
+                    uviValueEl.addClass("severe-uvi");
+                }
+                uviValueEl.addClass("uvi");
+                uviEl.append(uviValueEl);
+                todaysWeatherEl.append(uviEl);
+                todaysWeatherEl.show();
+            } else {
+                console.log("Unable to parse uvi value: " + data.current.uvi);
+            }
         });
 }
 
