@@ -13,6 +13,11 @@
     display: none;
 }
 
+/* Don't display the card until there is data */
+#five-day-forecast {
+    display: none;
+}
+
 /* Styling for the UVI value */
 .uvi {
     padding: 2px;

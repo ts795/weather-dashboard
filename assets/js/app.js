@@ -4,6 +4,7 @@ var searchInputEl = $("#searchInput");
 var searchedCitiesListEl = $("#searched-cities-list");
 var todaysWeatherEl = $("#todays-weather");
 var fiveDayForecastEl = $("#five-day-forecast");
+var fiveDayForecastCardContainersEl = $("#five-day-forecast-card-containers");
 var API_KEY = "";
 
 // List of already searched cities
@@ -123,16 +124,15 @@ function getWeatherForCity(city) {
             } else {
                 console.log("Unable to parse uvi value: " + data.current.uvi);
             }
-            console.log(data);
             // Update the 5 day forecast
-            fiveDayForecastEl.empty();
-            var titleEl = $("<h1>5-Day Forecast </h1>");
-            fiveDayForecastEl.append(titleEl);
+            fiveDayForecastCardContainersEl.empty();
             // Show the forecast for the next 5 days, ignore the first element since it is the current day
             for (var idx = 1; idx < 6; idx++) {
                 var forecastDay = createFiveDayForecastCard(data.daily[idx]);
-                fiveDayForecastEl.append(forecastDay);
+                fiveDayForecastCardContainersEl.append(forecastDay);
             }
+            // Show the forecast
+            fiveDayForecastEl.show();
             
         });
 }
