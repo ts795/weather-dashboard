@@ -40,3 +40,8 @@
     background-color: red;
     color: white;
 }
+
+/* Styling when hovering over search list item */
+.search-list-item:hover {
+    cursor: pointer;
+}

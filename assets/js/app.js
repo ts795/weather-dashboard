@@ -5,7 +5,7 @@ var searchedCitiesListEl = $("#searched-cities-list");
 var todaysWeatherEl = $("#todays-weather");
 var fiveDayForecastEl = $("#five-day-forecast");
 var fiveDayForecastCardContainersEl = $("#five-day-forecast-card-containers");
-var API_KEY = "";
+var API_KEY = "c08b9e5af7e85d42268e3b53afd57d29";
 
 // List of already searched cities
 var searchCitiesList = [];
@@ -41,6 +41,8 @@ function displaySearchedCities() {
         cityListEl.text(searchCitiesList[idx]);
         // Add the bootstrap class
         cityListEl.addClass("list-group-item");
+        cityListEl.addClass("search-list-item");
+        cityListEl.attr("data-city", searchCitiesList[idx]);
         searchedCitiesListEl.append(cityListEl);
     }
 }
@@ -170,4 +172,9 @@ searchButtonEl.on("click", function() {
     // Clear the input field's value
     searchInputEl.val("");
     getWeatherForCity(city);
+});
+
+// Click handler for saved searches
+searchedCitiesListEl.on('click', '.search-list-item', function (event) {
+    getWeatherForCity($(event.target).attr('data-city'));
 });
