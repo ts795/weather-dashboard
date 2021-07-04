@@ -70,10 +70,6 @@ function createFiveDayForecastCard(data) {
     tempEl.text("Temp: " + data.temp.day + "°F");
     tempEl.addClass("p-1 five-day-weather-text");
     cardEl.append(tempEl);
-    var windEl = $("<div>");
-    windEl.text("Wind: " + data.wind_speed + " MPH");
-    windEl.addClass("p-1 five-day-weather-text");
-    cardEl.append(windEl);
     var humidityEl = $("<div>");
     humidityEl.text("Humidity: " + data.humidity + " %");
     humidityEl.addClass("p-1 five-day-weather-text");
@@ -88,7 +84,11 @@ function getWeatherForCity(city) {
 
     fetch(requestUrl)
         .then(function (response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(city + ': ' + response.statusText);
+            }
         })
         .then(function (data) {
             var todaysDate = moment(data.dt, "X").format("MM-DD-YYYY");
@@ -135,7 +135,11 @@ function getWeatherForCity(city) {
             return fetch(requestUrl);
         })
         .then(function (response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(city + ': ' + response.statusText);
+            }
         })
         .then(function (data) {
             var uvi = parseFloat(data.current.uvi);
@@ -170,7 +174,10 @@ function getWeatherForCity(city) {
             // Show the forecast
             fiveDayForecastEl.show();
             
-        });
+        })
+        .catch(function (error) {
+            alert(error);
+        });;
 }
 
 // Click handler for the search button
