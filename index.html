@@ -19,14 +19,16 @@
             <!-- Column containing search box and saved search results -->
             <div class="col-12 col-sm-12 col-md-4" id="search-box-and-saved-searches">
                 <h2>Search for a City:</h2>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput">
-                    <button type="submit" class="btn btn-primary btn-sm" id="searchButton">
-                        <span class="material-icons">
-                        search
-                        </span>
-                    </button>
-                </div>
+                <form id="search-input-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchInput">
+                        <button type="submit" class="btn btn-primary btn-sm" id="searchButton">
+                            <span class="material-icons">
+                            search
+                            </span>
+                        </button>
+                    </div>
+                </form>
                 <ul class="list-group mt-3" id="searched-cities-list">
                     <!-- Cities dynamically inserted here -->
                     <!-- <li class="list-group-item search-list-item" data-city="Atlanta">Atlanta</li> -->

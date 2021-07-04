@@ -40,3 +40,43 @@
 .search-list-item:hover {
     cursor: pointer;
 }
+
+#five-day-forecast-card-containers h5 {
+    text-align: center;
+}
+
+/* Font size for the current weather text */
+.current-day-weather-text {
+    font-size: 1.5rem;
+}
+
+/* Small screen */
+@media (max-width: 767.98px) {
+    /* Font size for the date for the forecast card */
+    #five-day-forecast-card-containers h5 {
+        font-size: 2rem;
+    }
+
+    /* width of the image for the forecast card */
+    .five-day-weather-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    /* Font size for the weather text for the forecast card */
+    .five-day-weather-text {
+        font-size: 1.5rem;
+    }
+
+    /* Break up the date and city name on different lines for small screens */
+    .current-day-city-and-date {
+        display: block;
+    }
+
+    /* Don't show parentheses around the date on small screens since it will be on a separate line */
+    .date-parentheses {
+        display: none;
+    }
+  }

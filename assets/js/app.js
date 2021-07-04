@@ -6,6 +6,7 @@ var todaysWeatherEl = $("#todays-weather");
 var todaysWeatherCardContainerEl = $("#todays-weather-card-container");
 var fiveDayForecastEl = $("#five-day-forecast");
 var fiveDayForecastCardContainersEl = $("#five-day-forecast-card-containers");
+var searchInputFormEl = $("#search-input-form");
 var API_KEY = "c08b9e5af7e85d42268e3b53afd57d29";
 
 // List of already searched cities
@@ -62,19 +63,20 @@ function createFiveDayForecastCard(data) {
     // The link has a form: http://openweathermap.org/img/wn/10d@2x.png
     var weatherImageEl = $("<img>");
     weatherImageEl.attr("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
-    weatherImageEl.attr("alt", data.weather[0].icon.description);
+    weatherImageEl.attr("alt", data.weather[0].description);
+    weatherImageEl.addClass("five-day-weather-image");
     cardEl.append(weatherImageEl);
     var tempEl = $("<div>");
     tempEl.text("Temp: " + data.temp.day + "°F");
-    tempEl.addClass("p-1");
+    tempEl.addClass("p-1 five-day-weather-text");
     cardEl.append(tempEl);
     var windEl = $("<div>");
     windEl.text("Wind: " + data.wind_speed + " MPH");
-    windEl.addClass("p-1");
+    windEl.addClass("p-1 five-day-weather-text");
     cardEl.append(windEl);
     var humidityEl = $("<div>");
     humidityEl.text("Humidity: " + data.humidity + " %");
-    humidityEl.addClass("p-1");
+    humidityEl.addClass("p-1 five-day-weather-text");
     cardEl.append(humidityEl);
     return cardEl;
 }
@@ -94,7 +96,20 @@ function getWeatherForCity(city) {
             var iconDescription = data.weather[0].description;
             todaysWeatherEl.empty();
             var cityAndDateEl = $("<h1>");
-            cityAndDateEl.text(city + " (" + todaysDate + ")");
+            citySpanEl = $("<span>");
+            citySpanEl.text(city);
+            citySpanEl.addClass("current-day-city-and-date");
+            cityAndDateEl.append(citySpanEl);
+            dateSpanOpenParenthesesEl = $("<span>&nbsp(</span>");
+            dateSpanOpenParenthesesEl.addClass("date-parentheses");
+            cityAndDateEl.append(dateSpanOpenParenthesesEl);
+            dateSpanEl = $("<span>");
+            dateSpanEl.text(todaysDate);
+            dateSpanEl.addClass("current-day-city-and-date");
+            cityAndDateEl.append(dateSpanEl);
+            dateSpanCloseParenthesesEl = $("<span>)&nbsp</span>");
+            dateSpanCloseParenthesesEl.addClass("date-parentheses");
+            cityAndDateEl.append(dateSpanCloseParenthesesEl);
             // Add the image to the icon for the weather
             // The link has a form: http://openweathermap.org/img/wn/10d@2x.png
             var weatherImageEl = $("<img>");
@@ -104,12 +119,15 @@ function getWeatherForCity(city) {
             todaysWeatherEl.append(cityAndDateEl);
             var tempEl = $("<div>");
             tempEl.text("Temp: " + data.main.temp + "°F");
+            tempEl.addClass("current-day-weather-text");
             todaysWeatherEl.append(tempEl);
             var windEl = $("<div>");
             windEl.text("Wind: " + data.wind.speed + " MPH");
+            windEl.addClass("current-day-weather-text");
             todaysWeatherEl.append(windEl);
             var humidityEl = $("<div>");
             humidityEl.text("Humidity: " + data.main.humidity + " %");
+            humidityEl.addClass("current-day-weather-text");
             todaysWeatherEl.append(humidityEl);
             // Show the card
             // Get the UV index and 5 day forecase
@@ -124,6 +142,7 @@ function getWeatherForCity(city) {
             if (!isNaN(uvi)) {
                 var uviEl = $("<div>");
                 uviEl.text("UV Index: ");
+                uviEl.addClass("current-day-weather-text");
                 var uviValueEl = $("<span>");
                 uviValueEl.text(uvi);
                 /* Set the styling for the UV index value based on whether conditions are favorable, moderate, or severe */
@@ -134,7 +153,7 @@ function getWeatherForCity(city) {
                 } else {
                     uviValueEl.addClass("severe-uvi");
                 }
-                uviValueEl.addClass("uvi");
+                uviValueEl.addClass("uvi current-day-weather-text");
                 uviEl.append(uviValueEl);
                 todaysWeatherEl.append(uviEl);
                 todaysWeatherCardContainerEl.show();
@@ -155,7 +174,10 @@ function getWeatherForCity(city) {
 }
 
 // Click handler for the search button
-searchButtonEl.on("click", function() {
+searchInputFormEl.on('submit', function(event) {
+    // Prevent the default behavior
+    event.preventDefault();
+
     var city = searchInputEl.val();
     if (!city) {
         // No value entered for the city
